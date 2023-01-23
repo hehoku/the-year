@@ -11,8 +11,13 @@ export default function Home() {
       <div className={styles.months}>
         {Array.from(Array(12).keys()).map((item) => {
           return (
-            <div key={item}>
-              <span>{item + 1}</span>
+            <div className={styles.monthItem} key={item}>
+              <span>{(item + 1).toString().padStart(2, "0")}</span>
+              <div className={styles.days}>
+                {Array.from(Array(30).keys()).map((item) => {
+                  return <div key={item}>🔺</div>;
+                })}
+              </div>
             </div>
           );
         })}
