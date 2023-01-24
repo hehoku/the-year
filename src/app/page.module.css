@@ -2,9 +2,9 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   min-height: 100vh;
-  padding: 6rem;
+  padding: 4rem;
 }
 
 .description {
@@ -288,4 +288,15 @@
   flex-direction: row;
   gap: 8px;
   margin-left: 1em;
+}
+
+.monthName {
+  font-family: "Maple Mono SC NF";
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.header {
+  font-size: xx-large;
+  font-weight: bolder;
 }

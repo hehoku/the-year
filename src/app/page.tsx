@@ -7,12 +7,14 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <main className={styles.main}>
-      <h2>The Year</h2>
+      <h2 className={styles.header}>The Year</h2>
       <div className={styles.months}>
         {Array.from(Array(12).keys()).map((item) => {
           return (
             <div className={styles.monthItem} key={item}>
-              <span>{(item + 1).toString().padStart(2, "0")}</span>
+              <span className={styles.monthName}>
+                {(item + 1).toString().padStart(2, "0")}
+              </span>
               <div className={styles.days}>
                 {Array.from(Array(30).keys()).map((item) => {
                   return <div key={item}>🔺</div>;
