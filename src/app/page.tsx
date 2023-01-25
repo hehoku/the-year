@@ -17,14 +17,16 @@ export default function Home() {
 
     let dates: { [month: string]: string[] } = {};
 
-    for (let i = 0; i <= 365; i++) {
+    for (let i = 0; i <= 366; i++) {
       let date = new Date(new Date(firstDayOfThisYear.getTime()).setDate(+i));
       let month = date.getMonth().toString();
       let dateString = date.toLocaleDateString();
       if (!dates[month]) {
         dates[month] = [];
       }
-      dates[month].push(dateString);
+      if (date.getFullYear() === firstDayOfThisYear.getFullYear()) {
+        dates[month].push(dateString);
+      }
     }
 
     setDatesOfYear(dates);
