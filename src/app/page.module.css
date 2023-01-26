@@ -300,3 +300,19 @@
   font-size: xx-large;
   font-weight: bolder;
 }
+
+.tooltip {
+  background-color: azure;
+  border-radius: 8px;
+  color: gray;
+  font-size: small;
+  height: 30px;
+  line-height: 30px;
+  position: absolute;
+  text-align: center;
+  width: 80px;
+}
+
+.dateItem {
+  cursor: pointer;
+}

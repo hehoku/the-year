@@ -32,6 +32,20 @@ export default function Home() {
     setDatesOfYear(dates);
   }, []);
 
+  const [tooltip, setTooltip] = useState({
+    show: false,
+    date: "",
+  });
+
+  const handleHover = (event: React.MouseEvent<HTMLDivElement>) => {
+    let date = event.currentTarget.getAttribute("data-date") as string;
+    setTooltip({ show: true, date });
+  };
+
+  const handleLeave = () => {
+    setTooltip({ show: false, date: "" });
+  };
+
   return (
     <main className={styles.main}>
       <h2 className={styles.header}>The Year</h2>
@@ -42,11 +56,20 @@ export default function Home() {
               <span className={styles.monthName}>
                 {(Number(item) + 1).toString().padStart(2, "0")}
               </span>
-              <div className={styles.days}>
+              <div className={styles.days} onMouseEnter={handleHover}>
                 {datesOfYear[item].map((item) => {
                   return (
-                    <div data-date={item} key={item}>
+                    <div
+                      className={styles.dateItem}
+                      data-date={item}
+                      key={item}
+                      onMouseEnter={handleHover}
+                      onMouseLeave={handleLeave}
+                    >
                       🔺
+                      {tooltip.show && tooltip.date === item ? (
+                        <div className={styles.tooltip}>{item}</div>
+                      ) : null}
                     </div>
                   );
                 })}
