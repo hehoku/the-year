@@ -2,6 +2,7 @@
 
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface datesOfYearType {
   [month: string]: string[];
@@ -59,18 +60,23 @@ export default function Home() {
               <div className={styles.days} onMouseEnter={handleHover}>
                 {datesOfYear[item].map((item) => {
                   return (
-                    <div
-                      className={styles.dateItem}
-                      data-date={item}
+                    <Link
                       key={item}
-                      onMouseEnter={handleHover}
-                      onMouseLeave={handleLeave}
+                      href={`/date/${item.replaceAll("/", "-")}`}
                     >
-                      🔺
-                      {tooltip.show && tooltip.date === item ? (
-                        <div className={styles.tooltip}>{item}</div>
-                      ) : null}
-                    </div>
+                      <div
+                        className={styles.dateItem}
+                        data-date={item}
+                        key={item}
+                        onMouseEnter={handleHover}
+                        onMouseLeave={handleLeave}
+                      >
+                        🔺
+                        {tooltip.show && tooltip.date === item ? (
+                          <div className={styles.tooltip}>{item}</div>
+                        ) : null}
+                      </div>
+                    </Link>
                   );
                 })}
               </div>
