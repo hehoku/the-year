@@ -63,6 +63,7 @@ export default function Home() {
                     <Link
                       key={item}
                       href={`/date/${item.replaceAll("/", "-")}`}
+                      target="_self"
                     >
                       <div
                         className={styles.dateItem}
