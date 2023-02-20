@@ -11,7 +11,7 @@ interface datesOfYearType {
 export default function Home() {
   let [datesOfYear, setDatesOfYear] = useState<datesOfYearType>({});
 
-  useEffect(() => {
+  let getAllDates = () => {
     let now = new Date();
     let nowYear = now.getFullYear();
     let firstDayOfThisYear = new Date(nowYear, 0, 1);
@@ -30,6 +30,11 @@ export default function Home() {
       }
     }
 
+    return dates;
+  };
+
+  useEffect(() => {
+    let dates = getAllDates();
     setDatesOfYear(dates);
   }, []);
 
