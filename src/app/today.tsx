@@ -1,8 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 
 export default function Today() {
   const [pass7days, setPass7days] = useState<Dayjs[]>([]);
+  const [currDate, setCurrDate] = useState<string>(
+    dayjs().format("YYYY/MM/DD")
+  );
+
   const dayOfWeekCSSName =
     "w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center cursor-pointer";
 
@@ -40,6 +44,10 @@ export default function Today() {
     updateDays();
   }, []);
 
+  const handleClick = (item: Dayjs) => {
+    setCurrDate(item.format("YYYY/MM/DD"));
+  };
+
   return (
     <>
       <div className="flex flex-col items-center gap-20 justify-center min-h-screen">
@@ -49,12 +57,13 @@ export default function Today() {
         </div>
         <div className="flex flex-row justify-between gap-8">
           {pass7days &&
-            pass7days.map((item, index) => {
+            pass7days.map((item) => {
               return (
                 <div
                   key={item.format()}
+                  onClick={() => handleClick(item)}
                   className={
-                    index === 6
+                    item.format("YYYY/MM/DD") === currDate
                       ? dayOfWeekCSSName + " bg-green-400"
                       : dayOfWeekCSSName
                   }
