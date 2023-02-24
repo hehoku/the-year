@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 
+interface DateItem {
+  date: Dayjs;
+  isDone: boolean;
+}
+
 export default function Today() {
-  const [pass7days, setPass7days] = useState<Dayjs[]>([]);
+  const [pass7days, setPass7days] = useState<DateItem[]>([]);
   const [currDate, setCurrDate] = useState<string>(
     dayjs().format("YYYY/MM/DD")
   );
@@ -15,7 +20,10 @@ export default function Today() {
     let now = dayjs();
     for (let i = 0; i < 7; i++) {
       let day = now.subtract(i, "day");
-      days.unshift(day);
+      days.unshift({
+        date: day,
+        isDone: false,
+      });
     }
     console.log(days);
     setPass7days(days);
@@ -44,8 +52,8 @@ export default function Today() {
     updateDays();
   }, []);
 
-  const handleClick = (item: Dayjs) => {
-    setCurrDate(item.format("YYYY/MM/DD"));
+  const handleClick = (item: DateItem) => {
+    setCurrDate(item.date.format("YYYY/MM/DD"));
   };
 
   return (
@@ -60,15 +68,15 @@ export default function Today() {
             pass7days.map((item) => {
               return (
                 <div
-                  key={item.format()}
+                  key={item.date.format()}
                   onClick={() => handleClick(item)}
                   className={
-                    item.format("YYYY/MM/DD") === currDate
+                    item.date.format("YYYY/MM/DD") === currDate
                       ? dayOfWeekCSSName + " bg-green-400"
                       : dayOfWeekCSSName
                   }
                 >
-                  {dayOfWeekMapToAbbr(item.day())}
+                  {dayOfWeekMapToAbbr(item.date.day())}
                 </div>
               );
             })}
