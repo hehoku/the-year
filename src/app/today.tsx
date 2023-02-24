@@ -6,11 +6,17 @@ interface DateItem {
   isDone: boolean;
 }
 
+interface CurrDate {
+  date: string;
+  isDone: boolean;
+}
+
 export default function Today() {
   const [pass7days, setPass7days] = useState<DateItem[]>([]);
-  const [currDate, setCurrDate] = useState<string>(
-    dayjs().format("YYYY/MM/DD")
-  );
+  const [currDate, setCurrDate] = useState<CurrDate>({
+    date: dayjs().format("YYYY/MM/DD"),
+    isDone: false,
+  });
 
   const dayOfWeekCSSName =
     "w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center cursor-pointer";
@@ -52,16 +58,28 @@ export default function Today() {
     updateDays();
   }, []);
 
-  const handleClick = (item: DateItem) => {
-    setCurrDate(item.date.format("YYYY/MM/DD"));
+  const handleSwitchDate = (item: DateItem) => {
+    setCurrDate({ date: item.date.format("YYYY/MM/DD"), isDone: false });
+  };
+
+  const handleToggleStatus = () => {
+    setCurrDate((prevState) => {
+      return {
+        date: prevState.date,
+        isDone: !prevState.isDone,
+      };
+    });
   };
 
   return (
     <>
       <div className="flex flex-col items-center gap-20 justify-center min-h-screen">
         <h3 className="text-gray-700 text-4xl font-bold">Today</h3>
-        <div className="w-40 h-40 rounded-full bg-green-300 flex justify-center items-center text-8xl cursor-pointer">
-          ✔️
+        <div
+          onClick={handleToggleStatus}
+          className="w-40 h-40 selection:bg-green-300 rounded-full bg-green-300 flex justify-center items-center text-8xl cursor-pointer"
+        >
+          {currDate.isDone ? "✔️" : ""}
         </div>
         <div className="flex flex-row justify-between gap-8">
           {pass7days &&
@@ -69,9 +87,9 @@ export default function Today() {
               return (
                 <div
                   key={item.date.format()}
-                  onClick={() => handleClick(item)}
+                  onClick={() => handleSwitchDate(item)}
                   className={
-                    item.date.format("YYYY/MM/DD") === currDate
+                    item.date.format("YYYY/MM/DD") === currDate.date
                       ? dayOfWeekCSSName + " bg-green-400"
                       : dayOfWeekCSSName
                   }
