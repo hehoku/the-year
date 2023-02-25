@@ -87,16 +87,20 @@ export default function Today() {
           {pass7days &&
             pass7days.map((item) => {
               return (
-                <div
-                  key={item.date.format()}
-                  onClick={() => handleSwitchDate(item)}
-                  className={
-                    item.date.format("YYYY/MM/DD") === currDate.date
-                      ? dayOfWeekCSSName + " bg-green-400"
-                      : dayOfWeekCSSName
-                  }
-                >
-                  {dayOfWeekMapToAbbr(item.date.day())}
+                <div className="flex flex-col" key={item.date.format()}>
+                  <div
+                    onClick={() => handleSwitchDate(item)}
+                    className={
+                      item.date.format("YYYY/MM/DD") === currDate.date
+                        ? dayOfWeekCSSName + " bg-green-400"
+                        : dayOfWeekCSSName
+                    }
+                  >
+                    {dayOfWeekMapToAbbr(item.date.day())}
+                  </div>
+                  <span className="mt-2">
+                    {item.date.month() + 1}/{item.date.date()}
+                  </span>
                 </div>
               );
             })}
