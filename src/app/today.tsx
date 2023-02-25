@@ -35,7 +35,7 @@ export default function Today() {
     setPass7days(days);
   };
 
-  let dayOfWeekMapToAbbr = (dayOfWeek: number) => {
+  let dayOfWeekMapToAbbr = (dayOfWeek: number): string => {
     switch (dayOfWeek) {
       case 0:
         return "Su";
@@ -51,6 +51,8 @@ export default function Today() {
         return "Fr";
       case 6:
         return "Sa";
+      default:
+        return "Su";
     }
   };
 
@@ -58,11 +60,11 @@ export default function Today() {
     updateDays();
   }, []);
 
-  const handleSwitchDate = (item: DateItem) => {
+  const handleSwitchDate = (item: DateItem): void => {
     setCurrDate({ date: item.date.format("YYYY/MM/DD"), isDone: false });
   };
 
-  const handleToggleStatus = () => {
+  const handleToggleStatus = (): void => {
     setCurrDate((prevState) => {
       return {
         date: prevState.date,
