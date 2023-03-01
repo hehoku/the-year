@@ -3,5 +3,6 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "cSpell.words": [
     "callout"
-  ]
+  ],
+  "standard.enable": false
 }
