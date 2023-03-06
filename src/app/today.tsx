@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
+import supabase from "../config/supabaseClient";
 
 interface DateItem {
   date: Dayjs;
@@ -64,13 +65,27 @@ export default function Today() {
     setCurrDate({ date: item.date.format("YYYY/MM/DD"), isDone: false });
   };
 
-  const handleToggleStatus = (): void => {
+  const handleToggleStatus = async () => {
     setCurrDate((prevState) => {
       return {
         date: prevState.date,
         isDone: !prevState.isDone,
       };
     });
+    let { data, error } = await supabase
+      .from("Record")
+      .insert({
+        name: "test",
+        isDone: true,
+      })
+      .select();
+
+    if (error) {
+      console.error(error);
+    }
+    if (data) {
+      console.log(data);
+    }
   };
 
   return (
